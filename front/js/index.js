@@ -10,3 +10,9 @@ fetch("http://localhost:3000/api/products")
 .catch(function(error) {
     // Une erreur est survenue
 });
+
+let ul = document.createElement("ul");
+
+document.getElementById("items").appendChild(ul);
+ul.innerHTML = "<h1>caca</h1>";
+ul.classList.add("items__list");
