@@ -1,7 +1,4 @@
 var myRequest = new Request("http://localhost:3000/api/products");
-let ul = document.createElement("ul");
-ul.classList.add("items__list")
-document.getElementById("items").appendChild(ul);
 fetch(myRequest)
     .then(function(response) {
         if(response.ok) {
@@ -15,10 +12,13 @@ fetch(myRequest)
     console.log(value);
     for (let index = 0; index < value.length; index++) {
             const element = value[index];
-            let li = document.createElement("li");
-            ul.appendChild(li);
-            li.classList.add("items__list__item");
-            li.innerHTML = `<a href="/projet5/front/html/product${element._id}"><img src="${element.imageUrl}"></img><h3>${element.name}</h3><p>${element.description}</p></a>`;
+            let a = document.createElement("a");
+            a.classList.add("product");
+            document.getElementById("items").appendChild(a);
+            let article = document.createElement("article");
+            a.appendChild(article);
+            article.classList.add("product__article");
+            article.innerHTML = `<img src="${element.imageUrl}"></img><h3>${element.name}</h3><p>${element.description}</p>`;
             console.log(element);
             console.log(index);
     }
