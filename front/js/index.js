@@ -18,7 +18,7 @@ fetch(myRequest)
             let li = document.createElement("li");
             ul.appendChild(li);
             li.classList.add("items__list__item");
-            li.innerHTML = `<a>${element.name}<br>${element.description}<img src="${element.imageUrl}"></img></a>`;
+            li.innerHTML = `<a><h3>${element.name}</h3><br><p>${element.description}</p><img src="${element.imageUrl}"></img></a>`;
             console.log(element);
             console.log(index);
     }
