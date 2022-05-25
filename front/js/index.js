@@ -22,7 +22,7 @@ fetch(myRequest)
             let li = document.createElement("li");
             ul.appendChild(li);
             li.classList.add("items__item");
-            li.innerHTML = value[index].name;
+            li.innerHTML = `<a>${element.name}<br>${element.description}</a>`;
             console.log(element);
             console.log(index);
     }
@@ -31,3 +31,4 @@ fetch(myRequest)
     // Une erreur est survenue
 });
 
+// <img src="${element.imageUrl}"></img>
