@@ -1,11 +1,7 @@
 var myRequest = new Request("http://localhost:3000/api/products");
 let ul = document.createElement("ul");
-
-listOfProducts = '<li>${value[index].name}</li>'
-
+ul.classList.add("items__list")
 document.getElementById("items").appendChild(ul);
-ul.classList.add("items__list");
-
 fetch(myRequest)
     .then(function(response) {
         if(response.ok) {
@@ -21,8 +17,8 @@ fetch(myRequest)
             const element = value[index];
             let li = document.createElement("li");
             ul.appendChild(li);
-            li.classList.add("items__item");
-            li.innerHTML = `<a>${element.name}<br>${element.description}</a>`;
+            li.classList.add("items__list__item");
+            li.innerHTML = `<a>${element.name}<br>${element.description}<img src="${element.imageUrl}"></img></a>`;
             console.log(element);
             console.log(index);
     }
@@ -30,5 +26,3 @@ fetch(myRequest)
 .catch(function(error) {
     // Une erreur est survenue
 });
-
-// <img src="${element.imageUrl}"></img>
