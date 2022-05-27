@@ -1,6 +1,6 @@
-var paramsString = "/projet5/front/html/product.html?id=";
-var searchParams = new URLSearchParams(paramsString);
-const id = searchParams.get('id');
+const urlParams = new URLSearchParams(window.location.search);
+const pageId = urlParams.get('id');
+id = pageId;
 
 // const id = window.location.search;
 // console.log(id);
