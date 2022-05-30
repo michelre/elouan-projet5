@@ -2,9 +2,6 @@ const urlParams = new URLSearchParams(window.location.search);
 const pageId = urlParams.get('id');
 id = pageId;
 
-// const id = window.location.search;
-// console.log(id);
-// id = "107fb5b75607497b96722bda5b504926"
 fetch(`http://localhost:3000/api/products/${id}`)
     .then(function(response) {
         if(response.ok) {
@@ -15,9 +12,16 @@ fetch(`http://localhost:3000/api/products/${id}`)
         }
     })
 .then(function(value) {
+    
     console.log(value);
     document.getElementById("title").innerText = value.name;
     document.getElementById("description").innerText = value.description;
     document.getElementById("price").innerText = value.price;
-    
+    let img = document.createElement("img");
+    document.querySelector(".item__img").appendChild(img);
+    img.src = value.imageUrl;
+    for (let index = 0; index < value.colors.lenght; index++) {
+            document.getElementById("colors").innerHTML += `<option value="${value.colors[index]}">${value.colors[index]}</option>`;
+            console.log(value.colors);
+    }
 })
