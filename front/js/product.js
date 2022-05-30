@@ -12,7 +12,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
         }
     })
 .then(function(value) {
-    
     console.log(value);
     document.getElementById("title").innerText = value.name;
     document.getElementById("description").innerText = value.description;
@@ -20,8 +19,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
     let img = document.createElement("img");
     document.querySelector(".item__img").appendChild(img);
     img.src = value.imageUrl;
-    for (let index = 0; index < value.colors.lenght; index++) {
+    for (let index = 0; index < value.colors.length; index++) {
             document.getElementById("colors").innerHTML += `<option value="${value.colors[index]}">${value.colors[index]}</option>`;
-            console.log(value.colors);
     }
 })
