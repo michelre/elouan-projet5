@@ -22,4 +22,22 @@ fetch(`http://localhost:3000/api/products/${id}`)
     for (let index = 0; index < value.colors.length; index++) {
             document.getElementById("colors").innerHTML += `<option value="${value.colors[index]}">${value.colors[index]}</option>`;
     }
+let itemNumber = document.getElementById("quantity");
+// itemNumber.addEventListener("input", function() {});
+const itemColor = document.getElementById("colors").getElementsByTagName('option')[value.colors];
+
+    function send() {
+    fetch(`http://localhost:3000/api/products/${id}`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(value, itemColor, itemNumber)
+    });
+    console.log(value, itemColor, itemNumber);
+}
+
+const buttonCart = document.getElementById("addToCart");
+buttonCart.addEventListener("click", send);
 })
