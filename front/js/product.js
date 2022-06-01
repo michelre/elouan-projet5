@@ -15,19 +15,15 @@ function displayProduct(product){
         document.getElementById("colors").innerHTML +=
             `<option value="${value.colors[index]}">${value.colors[index]}</option>`;
     }
-    let itemNumber = document.getElementById("quantity");
-    // itemNumber.addEventListener("input", function() {});
-    const itemColor = document
-        .getElementById("colors")
-        .getElementsByTagName('option')[value.colors];
-
 }
 
 function addToCart(product){
-
-
-// Mettre à jour le localStorage
-//localStorage.setItem('cart', JSON.stringify([])) // On stock une chaine
+    let itemNumber = document.querySelector("#quantity").value;
+    let itemColor = document.querySelector("#colors").value;
+    let item = {product, itemNumber, itemColor};
+    let items = JSON.parse(localStorage.getItem("cart")) || [];
+    items.push(item);
+    localStorage.setItem('cart', JSON.stringify(items)) // On stock une chaine
 
 // Récupération du localStorage
 //JSON.parse(localStorage.getItem('cart')) // On récupère un tableau
