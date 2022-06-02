@@ -26,7 +26,7 @@ function addToCart(product){
     
     items.push(item);
     if (sameItem) {
-        item.itemNumber += sameItem.itemNumber;
+        item.itemNumber = +sameItem.itemNumber + +item.itemNumber;
         items.splice(items.indexOf(sameItem), 1);
     }
     localStorage.setItem('cart', JSON.stringify(items)) // On stock une chaine
