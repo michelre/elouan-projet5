@@ -22,8 +22,18 @@ function addToCart(product){
     let itemColor = document.querySelector("#colors").value;
     let item = {product, itemNumber, itemColor};
     let items = JSON.parse(localStorage.getItem("cart")) || [];
+    let sameItem = items.find(item => item.product._id === product._id && item.itemColor === itemColor);
+    
     items.push(item);
+    if (sameItem) {
+        item.itemNumber += sameItem.itemNumber;
+        items.splice(items.indexOf(sameItem), 1);
+    }
     localStorage.setItem('cart', JSON.stringify(items)) // On stock une chaine
+
+// si on ajoute le même produit, avec la même couleur et la même quantité, augmenté la quantité et ne pas ajouter le produit une nouvelle fois
+    
+
 
 // Récupération du localStorage
 //JSON.parse(localStorage.getItem('cart')) // On récupère un tableau
