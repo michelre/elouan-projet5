@@ -30,13 +30,6 @@ function addToCart(product){
         items.splice(items.indexOf(sameItem), 1);
     }
     localStorage.setItem('cart', JSON.stringify(items)) // On stock une chaine
-
-// si on ajoute le même produit, avec la même couleur et la même quantité, augmenté la quantité et ne pas ajouter le produit une nouvelle fois
-    
-
-
-// Récupération du localStorage
-//JSON.parse(localStorage.getItem('cart')) // On récupère un tableau
 }
 
 function initEvents(product){
