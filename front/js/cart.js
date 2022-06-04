@@ -16,7 +16,7 @@
         .then(response => response.json())
         .then(product => {
             document.querySelector('#cart__items').innerHTML = `
-            <article data-id="${product._id}" data-color="${product.itemColor}">
+            <article class="cart__item" data-id="${product._id}" data-color="${product.itemColor}">
             <div class="cart__item__img">
                 <img src="${product.imageUrl}" alt="${product.name}">
             </div>
@@ -28,8 +28,8 @@
                 </div>
                 <div class="cart__item__content__setting">
                     <div class="cart__item__content__setting__quantity">
-                        <p>Qté : ${Object.values(Cart)[i].itemNumber}</p>
-                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42"
+                        <p>Qté : </p>
+                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${Object.values(Cart)[i].itemNumber}"
                     </div>
                     <div class="cart__item__content__settings__delete">
                         <p class="deleteItem">Supprimer</p>
