@@ -12,7 +12,7 @@
 
  function fetchProduct (Cart) {
     let i = 0;
-    for (j in Object.keys(Cart)) {
+    for (let j = 0; Object.keys(Cart); j++) {
         fetch(`http://localhost:3000/api/products/${Object.values(Cart)[i].product._id}`)
         .then(response => response.json())
         .then(product => {
@@ -20,7 +20,7 @@
             document
             .querySelector('#cart__items')
             .innerHTML += `
-            <article class="cart__item" data-id="${product._id}" data-color="${product.itemColor}">
+            <article class="cart__item" data-id="${product._id}" data-color="${Object.values(Cart)[j].itemColor}">
             <div class="cart__item__img">
                 <img src="${product.imageUrl}" alt="${product.name}">
             </div>
