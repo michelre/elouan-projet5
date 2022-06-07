@@ -46,14 +46,12 @@ function fetchProduct (Cart) {
 }
 
 function changeQuantity () {
-    let itemQuantity = document.querySelectorAll('.itemQuantity');
     itemQuantity.addEventListener('change', function (e) {
-        let cart = JSON.parse(localStorage.getItem('cart'));
-        let id = e.target.parentNode.parentNode.parentNode.parentNode.dataset.id;
-        let color = e.target.parentNode.parentNode.parentNode.parentNode.dataset.color;
-        let item = cart.find(item => item.product._id === id && item.itemColor === color);
-        item.itemNumber = e.target.value;
-        localStorage.setItem('cart', JSON.stringify(cart));
+        e.preventDefault();
+        
+        let itemQuantity = document.querySelectorAll('.itemQuantity').value;
+
+
     })
 }
 
@@ -61,6 +59,7 @@ function deleteButton () {
     let supprButton = document.querySelector('.deleteItem');
     supprButton.addEventListener('click', function (e) {
         e.preventDefault();
+        
     })
 }
 
