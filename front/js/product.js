@@ -1,6 +1,6 @@
 function fetchProduct(id){
-        return fetch(`http://localhost:3000/api/products/${id}`)
-            .then(res => res.json())
+    return fetch(`http://localhost:3000/api/products/${id}`)
+        .then(res => res.json())
 }
 
 function displayProduct(product){
@@ -15,28 +15,21 @@ function displayProduct(product){
         document.getElementById("colors").innerHTML +=
             `<option value="${value.colors[index]}">${value.colors[index]}</option>`;
     }
-    let itemNumber = document.getElementById("quantity");
-// itemNumber.addEventListener("input", function() {});
-    const itemColor = document
-        .getElementById("colors")
-        .getElementsByTagName('option')[value.colors];
-
 }
 
 function addToCart(product){
-    /**TODO:
-     *  - Récupérer les informations sélectionnées du formulaire
-     *  - Créer l'objet produit avec ses informations + la couleur sélectionnée et la quantité
-        - Ajouter l'objet produit au localStorage dans un key cart par exemple (Attention: Le localStorage doit être un tableau de produit)
-        - Note: Si j'ajoute plusieurs fois le meme produit (meme id + meme couleur), j'incrémente sa quantité
-        - Note pour plus tard: On ne stocke pas le prix dans le localStorage
-     **/
-
-    // Mettre à jour le localStorage
-    //localStorage.setItem('cart', JSON.stringify([])) // On stock une chaine
-
-    // Récupération du localStorage
-    //JSON.parse(localStorage.getItem('cart')) // On récupère un tableau
+    let itemNumber = document.querySelector("#quantity").value;
+    let itemColor = document.querySelector("#colors").value;
+    let item = {product, itemNumber, itemColor};
+    let items = JSON.parse(localStorage.getItem("cart")) || [];
+    let sameItem = items.find(item => item.product._id === product._id && item.itemColor === itemColor);
+    
+    items.push(item);
+    if (sameItem) {
+        item.itemNumber = +sameItem.itemNumber + +item.itemNumber;
+        items.splice(items.indexOf(sameItem), 1);
+    }
+    localStorage.setItem('cart', JSON.stringify(items)) // On stock une chaine
 }
 
 function initEvents(product){
