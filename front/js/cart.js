@@ -10,13 +10,12 @@
  **/
 
 
- function fetchProduct (Cart) {
+function fetchProduct (Cart) {
     let i = 0;
     for (let j = 0; Object.keys(Cart); j++) {
         fetch(`http://localhost:3000/api/products/${Object.values(Cart)[i].product._id}`)
         .then(response => response.json())
         .then(product => {
-            console.log(product);
             document
             .querySelector('#cart__items')
             .innerHTML += `
@@ -46,11 +45,30 @@
 }
 }
 
+function changeQuantity () {
+    let itemQuantity = document.querySelectorAll('.itemQuantity');
+    itemQuantity.addEventListener('change', function (e) {
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        let id = e.target.parentNode.parentNode.parentNode.parentNode.dataset.id;
+        let color = e.target.parentNode.parentNode.parentNode.parentNode.dataset.color;
+        let item = cart.find(item => item.product._id === id && item.itemColor === color);
+        item.itemNumber = e.target.value;
+        localStorage.setItem('cart', JSON.stringify(cart));
+    })
+}
+
+function deleteButton () {
+    let supprButton = document.querySelector('.deleteItem');
+    supprButton.addEventListener('click', function (e) {
+        e.preventDefault();
+    })
+}
+
 async function init() {
     let cart = localStorage.getItem('cart');
     let Cart = JSON.parse(cart);
     let fetch = await fetchProduct(Cart);
-    console.log(Cart);
+    changeQuantity();
 }
 
 init();
