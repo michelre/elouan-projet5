@@ -44,31 +44,24 @@ async function fetchProduct (Cart) {
 }
 }
 
-function changeQuantity (Cart) {
+function changeQuantity () {
     let itemQuantities = document.querySelectorAll('.itemQuantity')
     itemQuantities.forEach((itemQuantity) => {
         itemQuantity.addEventListener('change', function (e) {
             e.preventDefault();
-            const quantity = itemQuantity.closest('.cart__item');
-            let id = quantity.dataset.id;
-            id = Cart.find(item => item.product._id === id);
-            id = id.itemNumber;
-            console.log(id);
             const retrievedCart = localStorage.getItem('cart');
             const cart = JSON.parse(retrievedCart) || [];
+            const quantity = itemQuantity.closest('.cart__item');
+            let id = quantity.dataset.id;
+            id = cart.find(item => item.product._id === id);
+            productQuantity = id.itemNumber;
+            console.log(productQuantity);
             
-            console.log(e.target.value);
-            console.log(cart[id].itemNumber);
-            let itemQuantityElement = itemQuantity.closest('.cart__item');
-            cart[id].itemNumber = e.target.value;
-            const modifiedCart = JSON.stringify(cart);
+            
+            //console.log(cart[id].itemNumber);
+            cart[productQuantity] = e.target.value;
+            let modifiedCart = JSON.stringify(cart);
             localStorage.setItem('cart', modifiedCart);
-            
-            /*for(let i = 0; i < Cart.length; i++) {
-                var cartKey = localStorage.key(i);
-                var splitKey = cartKey.split("");
-
-            }*/
         })
     })
 
@@ -86,7 +79,7 @@ async function init() {
     let cart = localStorage.getItem('cart');
     let Cart = JSON.parse(cart);
     let fetch = await fetchProduct(Cart);
-    changeQuantity(Cart);
+    changeQuantity();
 }
 
 init();
