@@ -8,41 +8,6 @@
  *  - Calcul le total global
  *  - On ajoute les évènements permettant de vider le panier et de supprimer chaque produit
  **/
-function fetchProducts (cart) {
-    return Promise.all(cart.map(product => __fetchProduct(product)))
-}
-
-function __fetchProduct(data){
-    return fetch(`http://localhost:3000/api/products/${data.product._id}`)
-        .then(response => response.json())
-        .then(product => {
-            document
-                .querySelector('#cart__items')
-                .innerHTML += `
-            <article class="cart__item" data-id="${product._id}" data-color="${data.itemColor}">
-            <div class="cart__item__img">
-                <img src="${product.imageUrl}" alt="${product.name}">
-            </div>
-            <div class="cart__item__content">
-                <div class="cart__item__content__description">
-                    <h2>${product.name}</h2>
-                    <p>${data.itemColor}</p>
-                    <p>${product.price}</p>
-                </div>
-                <div class="cart__item__content__setting">
-                    <div class="cart__item__content__setting__quantity">
-                        <p>Qté : </p>
-                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${data.itemNumber}"
-                    </div>
-                    <div class="cart__item__content__settings__delete">
-                        <p class="deleteItem">Supprimer</p>
-                    </div>
-                </div>
-            </div>
-            </article>`;
-        })
-}
-
 
 
 async function fetchProduct (Cart) {
@@ -79,12 +44,22 @@ async function fetchProduct (Cart) {
 }
 }
 
-function changeQuantity () {
+function changeQuantity (Cart) {
     let itemQuantities = document.querySelectorAll('.itemQuantity')
     itemQuantities.forEach((itemQuantity) => {
-        itemQuantity.addEventListener('change', function (e) {
+        itemQuantity.addEventListener('input', function (e) {
+
             e.preventDefault();
-            console.log(e.target.value)
+            
+            let quantityClosest = e.target.closest('.cart__item');
+            console.log(e.target.value);
+            const retrievedCart = localStorage.getItem('cart');
+            const cart = JSON.parse(retrievedCart) || [];
+            console.log(cart[0].itemNumber);
+            let itemQuantityElement = itemQuantity.closest('.cart__item');
+            cart[0].itemNumber = e.target.value;
+            const modifiedCart = JSON.stringify(cart);
+            localStorage.setItem('cart', modifiedCart);    
         })
     })
 
@@ -94,7 +69,7 @@ function deleteButton () {
     let supprButton = document.querySelector('.deleteItem');
     supprButton.addEventListener('click', function (e) {
         e.preventDefault();
-
+        
     })
 }
 
@@ -102,12 +77,11 @@ async function init() {
     let cart = localStorage.getItem('cart');
     let Cart = JSON.parse(cart);
     let fetch = await fetchProduct(Cart);
-    //console.log(await fetchProducts(Cart))
-
-    changeQuantity();
+    changeQuantity(Cart);
 }
 
 init();
+
 
 /**
  * Fetch post de la commande
@@ -122,6 +96,49 @@ init();
     },
     products: ['_ae98..', '...']
 }*/
+
+
+
+
+
+
+
+
+/**function fetchProducts (cart) {
+    return Promise.all(cart.map(product => __fetchProduct(product)))
+}*/
+
+/**function __fetchProduct(data){
+    return fetch(`http://localhost:3000/api/products/${data.product._id}`)
+        .then(response => response.json())
+        .then(product => {
+            document
+                .querySelector('#cart__items')
+                .innerHTML += `
+            <article class="cart__item" data-id="${product._id}" data-color="${data.itemColor}">
+            <div class="cart__item__img">
+                <img src="${product.imageUrl}" alt="${product.name}">
+            </div>
+            <div class="cart__item__content">
+                <div class="cart__item__content__description">
+                    <h2>${product.name}</h2>
+                    <p>${data.itemColor}</p>
+                    <p>${product.price}</p>
+                </div>
+                <div class="cart__item__content__setting">
+                    <div class="cart__item__content__setting__quantity">
+                        <p>Qté : </p>
+                        <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${data.itemNumber}"
+                    </div>
+                    <div class="cart__item__content__settings__delete">
+                        <p class="deleteItem">Supprimer</p>
+                    </div>
+                </div>
+            </div>
+            </article>`;
+        })
+}*/
+
 
 
 
