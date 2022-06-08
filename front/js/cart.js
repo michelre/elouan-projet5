@@ -47,19 +47,28 @@ async function fetchProduct (Cart) {
 function changeQuantity (Cart) {
     let itemQuantities = document.querySelectorAll('.itemQuantity')
     itemQuantities.forEach((itemQuantity) => {
-        itemQuantity.addEventListener('input', function (e) {
-
+        itemQuantity.addEventListener('change', function (e) {
             e.preventDefault();
-            
-            let quantityClosest = e.target.closest('.cart__item');
-            console.log(e.target.value);
+            const quantity = itemQuantity.closest('.cart__item');
+            let id = quantity.dataset.id;
+            id = Cart.find(item => item.product._id === id);
+            id = id.itemNumber;
+            console.log(id);
             const retrievedCart = localStorage.getItem('cart');
             const cart = JSON.parse(retrievedCart) || [];
-            console.log(cart[0].itemNumber);
+            
+            console.log(e.target.value);
+            console.log(cart[id].itemNumber);
             let itemQuantityElement = itemQuantity.closest('.cart__item');
-            cart[0].itemNumber = e.target.value;
+            cart[id].itemNumber = e.target.value;
             const modifiedCart = JSON.stringify(cart);
-            localStorage.setItem('cart', modifiedCart);    
+            localStorage.setItem('cart', modifiedCart);
+            
+            /*for(let i = 0; i < Cart.length; i++) {
+                var cartKey = localStorage.key(i);
+                var splitKey = cartKey.split("");
+
+            }*/
         })
     })
 
