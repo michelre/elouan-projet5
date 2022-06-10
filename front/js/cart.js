@@ -50,18 +50,21 @@ function changeQuantity () {
         itemQuantity.addEventListener('change', function (e) {
             e.preventDefault();
             const retrievedCart = localStorage.getItem('cart');
-            const cart = JSON.parse(retrievedCart) || [];
+            let cart = JSON.parse(retrievedCart) || [];
             const quantity = itemQuantity.closest('.cart__item');
             let id = quantity.dataset.id;
+            let color = quantity.dataset.color;
             id = cart.find(item => item.product._id === id);
+            let product = id.product;
             productQuantity = id.itemNumber;
-            console.log(productQuantity);
-            
-            
-            //console.log(cart[id].itemNumber);
-            cart[productQuantity] = e.target.value;
+            let item = {product, productQuantity, color};
+            let items = JSON.parse(localStorage.getItem("cart")) || [];
+
+            productQuantity = e.target.value;
+            cart = items;
+            console.log(cart);
             let modifiedCart = JSON.stringify(cart);
-            localStorage.setItem('cart', modifiedCart);
+            //localStorage.setItem('cart', modifiedCart);
         })
     })
 
