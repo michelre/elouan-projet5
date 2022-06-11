@@ -80,21 +80,19 @@ function deleteButton () {
 }
 
 function TotalPrice () {
-    
-    let priceTags = document.querySelectorAll('.cart__item__content__description p:nth-child(3)');
-    priceTags.forEach((priceTag) => {
-        const retrievedCart = localStorage.getItem('cart');
-        let cart = JSON.parse(retrievedCart) || [];
-        let id = priceTag.closest('.cart__item');
-        id = cart.find(item => item.product._id === id.dataset.id);
-        let productPrice = id.product.price;
-        let productQuantity = id.itemNumber;
-        let totalPrice = productPrice * productQuantity;
-        totalPrice = totalPrice * cart.length;
-        console.log(totalPrice);
-    })
-    
-    //let totalQuantitySpan = document.querySelector('#totalQuantity').innerText = totalPrice;
+    let cart = localStorage.getItem('cart');
+    let Cart = JSON.parse(cart);
+    let totalPrice = 0;
+    let totalQuantity = 0;
+    for (let i = 0; i < Cart.length; i++) {
+        totalPrice += Cart[i].product.price * Cart[i].itemNumber;
+        totalQuantity += +Cart[i].itemNumber;
+        
+    }
+    console.log(totalPrice);
+    console.log(totalQuantity);
+    let totalPriceSpan = document.querySelector('#totalPrice').innerText = totalPrice;
+    let totalQuantitySpan = document.querySelector('#totalQuantity').innerText = totalQuantity;
 }
 
 async function init() {
