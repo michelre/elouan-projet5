@@ -79,12 +79,31 @@ function deleteButton () {
 })
 }
 
+function TotalPrice () {
+    
+    let priceTags = document.querySelectorAll('.cart__item__content__description p:nth-child(3)');
+    priceTags.forEach((priceTag) => {
+        const retrievedCart = localStorage.getItem('cart');
+        let cart = JSON.parse(retrievedCart) || [];
+        let id = priceTag.closest('.cart__item');
+        id = cart.find(item => item.product._id === id.dataset.id);
+        let productPrice = id.product.price;
+        let productQuantity = id.itemNumber;
+        let totalPrice = productPrice * productQuantity;
+        totalPrice = totalPrice * cart.length;
+        console.log(totalPrice);
+    })
+    
+    //let totalQuantitySpan = document.querySelector('#totalQuantity').innerText = totalPrice;
+}
+
 async function init() {
     let cart = localStorage.getItem('cart');
     let Cart = JSON.parse(cart);
     let fetch = await fetchProduct(Cart);
     changeQuantity();
     deleteButton();
+    TotalPrice();
 }
 
 init();
