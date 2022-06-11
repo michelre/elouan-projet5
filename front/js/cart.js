@@ -1,16 +1,5 @@
-// Récupération du localStorage
-//JSON.parse(localStorage.getItem('cart')) // On récupère un tableau
 
-/**
- *
- * TODO
- *  - Récupérer le localStorage pour afficher le détail des produits
- *  - Calcul le total global
- *  - On ajoute les évènements permettant de vider le panier et de supprimer chaque produit
- **/
-
-
-async function fetchProduct (Cart) {
+async function FetchProduct (Cart) {
 
     for (let j = 0; j < Cart.length; j++) {
         await fetch(`http://localhost:3000/api/products/${Cart[j].product._id}`)
@@ -44,7 +33,7 @@ async function fetchProduct (Cart) {
 }
 }
 
-function changeQuantity () {
+function ChangeQuantity () {
     let itemQuantities = document.querySelectorAll('.itemQuantity')
     itemQuantities.forEach((itemQuantity) => {
         itemQuantity.addEventListener('change', function (e) {
@@ -62,7 +51,7 @@ function changeQuantity () {
     })
 }
 
-function deleteButton () {
+function DeleteButton () {
     let supprButtons = document.querySelectorAll('.deleteItem')
     supprButtons.forEach((supprButton) => {
         supprButton.addEventListener('click', function (e) {
@@ -95,13 +84,18 @@ function TotalPrice () {
     let totalQuantitySpan = document.querySelector('#totalQuantity').innerText = totalQuantity;
 }
 
+function PostCart () {
+
+}
+
 async function init() {
     let cart = localStorage.getItem('cart');
     let Cart = JSON.parse(cart);
-    let fetch = await fetchProduct(Cart);
-    changeQuantity();
-    deleteButton();
+    let fetch = await FetchProduct(Cart);
+    ChangeQuantity();
+    DeleteButton();
     TotalPrice();
+    PostCart();
 }
 
 init();
