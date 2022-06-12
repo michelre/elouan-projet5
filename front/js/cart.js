@@ -86,16 +86,7 @@ let postCart = document.querySelector('#order');
 postCart.addEventListener('click', PostCart);
 
 function PostCart () {
-    /*const Order = {
-        contact: {
-            firstName: document.querySelector('#firstName').value,
-                lastName: document.querySelector('#lastName').value,
-                address: document.querySelector('#address').value,
-                city: document.querySelector('#city').value,
-                email: document.querySelector('#email').value,
-        },
-        products: ['_ae98..', '...']
-    }*/
+    let productsId = GetProductsId();
 
     let order = {
         method: 'POST',
@@ -111,7 +102,7 @@ function PostCart () {
                 city: "document.querySelector('#city').value",
                 email: "document.querySelector('#email').value",
             },
-            products: []
+            products: productsId,
         })
     }
 
@@ -119,7 +110,22 @@ function PostCart () {
     .then(response => response.json())
     .then(function (data) {
         console.log(data);
+        let postCart = document.querySelector('#order');
+        postCart.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'confirmation.html?OrderId=' + data.orderId;
+    });
     })
+}
+
+function GetProductsId () {
+    let productsId = [];
+    let cart = localStorage.getItem('cart');
+    let Cart = JSON.parse(cart);
+    for (let i = 0; i < Cart.length; i++) {
+        productsId.push(Cart[i].product._id);
+    }
+    return productsId;
 }
 
 async function init() {
@@ -148,3 +154,11 @@ init();
     },
     products: ['_ae98..', '...']
 }*/
+
+
+/*let productsId = [];
+    let cart = localStorage.getItem('cart');
+    let Cart = JSON.parse(cart);
+    for (let i = 0; i < Cart.length; i++) {
+        productsId.push(Cart[i].product._id);
+    }*/
