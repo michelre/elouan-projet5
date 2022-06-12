@@ -84,8 +84,34 @@ function TotalPrice () {
     let totalQuantitySpan = document.querySelector('#totalQuantity').innerText = totalQuantity;
 }
 
-function PostCart () {
+let postCart = document.querySelector('#order');
+postCart.addEventListener('click', PostCart);
 
+function PostCart (e) {
+    e.preventDefault();
+    let products = [];
+    let contact = {
+                firstName: document.querySelector('#firstName').value,
+                lastName: document.querySelector('#lastName').value,
+                address: document.querySelector('#address').value,
+                city: document.querySelector('#city').value,
+                email: document.querySelector('#email').value,
+            };
+
+    fetch ('http://localhost:3000/api/product/order', {
+        method: 'POST',
+        body: JSON.stringify({order}),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+    })
+    .then(response => response.json())
+    .then(order => {
+        order = contact, products;
+        localStorage.setItem('order');
+        console.log(order);
+    })
 }
 
 async function init() {
