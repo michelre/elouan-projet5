@@ -78,8 +78,6 @@ function TotalPrice () {
         totalQuantity += +Cart[i].itemNumber;
         
     }
-    console.log(totalPrice);
-    console.log(totalQuantity);
     let totalPriceSpan = document.querySelector('#totalPrice').innerText = totalPrice;
     let totalQuantitySpan = document.querySelector('#totalQuantity').innerText = totalQuantity;
 }
@@ -87,30 +85,40 @@ function TotalPrice () {
 let postCart = document.querySelector('#order');
 postCart.addEventListener('click', PostCart);
 
-function PostCart (e) {
-    e.preventDefault();
-    let products = [];
-    let contact = {
-                firstName: document.querySelector('#firstName').value,
+function PostCart () {
+    /*const Order = {
+        contact: {
+            firstName: document.querySelector('#firstName').value,
                 lastName: document.querySelector('#lastName').value,
                 address: document.querySelector('#address').value,
                 city: document.querySelector('#city').value,
                 email: document.querySelector('#email').value,
-            };
-
-    fetch ('http://localhost:3000/api/product/order', {
-        method: 'POST',
-        body: JSON.stringify({order}),
-        headers: {
-            'Content-Type': 'application/json'
         },
+        products: ['_ae98..', '...']
+    }*/
 
-    })
+    let order = {
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            contact: {
+                firstName: "document.querySelector('#firstName').value",
+                lastName: "document.querySelector('#lastName').value",
+                address: "document.querySelector('#address').value",
+                city: "document.querySelector('#city').value",
+                email: "document.querySelector('#email').value",
+            },
+            products: []
+        })
+    }
+
+    fetch ('http://localhost:3000/api/products/order', order)
     .then(response => response.json())
-    .then(order => {
-        order = contact, products;
-        localStorage.setItem('order');
-        console.log(order);
+    .then(function (data) {
+        console.log(data);
     })
 }
 
