@@ -45,6 +45,7 @@ function ChangeQuantity () {
             productQuantity = e.target.value;
             id.itemNumber = productQuantity;
             localStorage.setItem('cart', JSON.stringify(cart));
+            location.reload();
         })
     })
 }
