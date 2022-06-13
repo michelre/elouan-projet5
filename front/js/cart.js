@@ -110,13 +110,31 @@ function PostCart () {
     .then(response => response.json())
     .then(function (data) {
         console.log(data);
-        let postCart = document.querySelector('#order');
-        postCart.addEventListener('click', function (e) {
-            e.preventDefault();
-            window.location.href = 'confirmation.html?OrderId=' + data.orderId;
+        ValidateForm(data);
     });
-    })
 }
+
+function ValidateForm(data) {
+    let form = document.querySelector('.cart__order__form');
+        form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        let firstName = document.querySelector('#firstName').value;
+        let lastName = document.querySelector('#lastName').value;
+        let address = document.querySelector('#address').value;
+        let city = document.querySelector('#city').value;
+        let email = document.querySelector('#email').value;
+        let nameRegex = /^[a-zA-Z ]{2,30}$/;
+        
+        if (nameRegex.test(firstName, lastName)) {
+            window.location.href = 'confirmation.html?OrderId=' + data.orderId;
+            return true;
+        }
+        else {
+            alert('Veuillez entrer un nom valide');
+            return false;
+        }
+        })
+    }
 
 function GetProductsId () {
     let productsId = [];
