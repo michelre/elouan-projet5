@@ -32,9 +32,31 @@ function addToCart(product){
     localStorage.setItem('cart', JSON.stringify(items)) // On stock une chaine
 }
 
+function addToCartMessage () {
+
+        
+        let confirmationMessage = document.createElement("div");
+        confirmationMessage.style.minWidth = "300px";
+        confirmationMessage.style.minHeight = "40px";
+        confirmationMessage.style.backgroundColor = "white";
+        confirmationMessage.style.marginTop = "110px";
+        confirmationMessage.style.paddingTop = "16px";
+        confirmationMessage.style.textAlign = "center";
+        confirmationMessage.style.color = "black";
+        confirmationMessage.style.fontSize = "20px";
+        confirmationMessage.style.position = "absolute";
+        confirmationMessage.style.borderRadius = "40px";
+        confirmationMessage.textContent = "Article ajouté au panier !";
+        document.querySelector(".item__content__addButton").appendChild(confirmationMessage);
+        setTimeout(function () {
+            confirmationMessage.remove();
+        }, 3000);   
+}
+
 function initEvents(product){
     const buttonCart = document.querySelector("#addToCart");
     buttonCart.addEventListener("click", () => addToCart(product));
+    buttonCart.addEventListener("click", () => addToCartMessage());
 }
 
 async function init(){
@@ -43,6 +65,7 @@ async function init(){
     const product = await fetchProduct(id)
     displayProduct(product)
     initEvents(product)
+    addToCartMessage()
 }
 
 init();
