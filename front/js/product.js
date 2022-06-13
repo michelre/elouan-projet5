@@ -65,7 +65,6 @@ async function init(){
     const product = await fetchProduct(id)
     displayProduct(product)
     initEvents(product)
-    addToCartMessage()
 }
 
 init();

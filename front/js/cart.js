@@ -1,6 +1,4 @@
-
 async function FetchProduct (Cart) {
-
     for (let j = 0; j < Cart.length; j++) {
         await fetch(`http://localhost:3000/api/products/${Cart[j].product._id}`)
         .then(response => response.json())
@@ -64,6 +62,33 @@ function DeleteButton () {
             cart.splice(cart.indexOf(id), 1);
             console.log(id);
             localStorage.setItem('cart', JSON.stringify(cart));
+            location.reload();
+    })
+})
+}
+
+function DeleteButtonMessage () {
+    let supprButtons = document.querySelectorAll('.deleteItem')
+    supprButtons.forEach((supprButton) => {
+        supprButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            let confirmationMessage = document.createElement("div");
+            confirmationMessage.style.minWidth = "300px";
+            confirmationMessage.style.minHeight = "40px";
+            confirmationMessage.style.backgroundColor = "white";
+            confirmationMessage.style.marginTop = "110px";
+            confirmationMessage.style.paddingTop = "16px";
+            confirmationMessage.style.textAlign = "center";
+            confirmationMessage.style.color = "black";
+            confirmationMessage.style.fontSize = "20px";
+            confirmationMessage.style.position = "absolute";
+            confirmationMessage.style.borderRadius = "40px";
+            confirmationMessage.style.left = "40%";
+            confirmationMessage.textContent = "Article supprimé au panier !";
+            document.querySelector('#cart__items').appendChild(confirmationMessage);
+            setTimeout(function () {
+                confirmationMessage.remove();
+            }, 3000);  
     })
 })
 }
@@ -76,7 +101,6 @@ function TotalPrice () {
     for (let i = 0; i < Cart.length; i++) {
         totalPrice += Cart[i].product.price * Cart[i].itemNumber;
         totalQuantity += +Cart[i].itemNumber;
-        
     }
     let totalPriceSpan = document.querySelector('#totalPrice').innerText = totalPrice;
     let totalQuantitySpan = document.querySelector('#totalQuantity').innerText = totalQuantity;
@@ -87,7 +111,6 @@ postCart.addEventListener('click', PostCart);
 
 function PostCart () {
     let productsId = GetProductsId();
-
     let order = {
         method: 'POST',
         headers: {
@@ -105,7 +128,6 @@ function PostCart () {
             products: productsId,
         })
     }
-
     fetch ('http://localhost:3000/api/products/order', order)
     .then(response => response.json())
     .then(function (data) {
@@ -151,31 +173,9 @@ async function init() {
     let fetch = await FetchProduct(Cart);
     ChangeQuantity();
     DeleteButton();
+    DeleteButtonMessage();
     TotalPrice();
     PostCart();
 }
 
 init();
-
-
-/**
- * Fetch post de la commande
- */
-/*const order = {
-    contact: {
-        firstName: '',
-        lastName: '',
-        address: '',
-        city: '',
-        email: '',
-    },
-    products: ['_ae98..', '...']
-}*/
-
-
-/*let productsId = [];
-    let cart = localStorage.getItem('cart');
-    let Cart = JSON.parse(cart);
-    for (let i = 0; i < Cart.length; i++) {
-        productsId.push(Cart[i].product._id);
-    }*/
