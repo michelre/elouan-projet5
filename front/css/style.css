@@ -130,17 +130,16 @@ main {
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
-	list-style-type: none;
 }
 .items a {
 	width: 21%;
 	text-decoration: none;
 	color: unset;
 }
-.items a:hover article  {
+.items a:hover article {
 	box-shadow: rgba(42, 18, 206, 0.9) 0 0 22px 6px;
 }
-.items article{
+.items article {
 	background-color: var(--secondary-color);
 	display: flex;
 	flex-direction: column;
@@ -149,8 +148,6 @@ main {
 	padding-top: 25px;
 	width: 100%;
 	border-radius: 10px;
-	text-decoration: none;
-	color: white;
 }
 .items article img {
 	width: 160px;
