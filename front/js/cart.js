@@ -109,7 +109,6 @@ function PostCart () {
     fetch ('http://localhost:3000/api/products/order', order)
     .then(response => response.json())
     .then(function (data) {
-        console.log(data);
         ValidateForm(data);
     });
 }
@@ -124,8 +123,8 @@ function ValidateForm(data) {
         let city = document.querySelector('#city').value;
         let email = document.querySelector('#email').value;
         let nameRegex = /^[a-zA-Z ]{2,30}$/;
-        
-        if (nameRegex.test(firstName, lastName)) {
+        let adressRegex = /^[a-zA-Z0-9\s,.'-]{3,}$/;
+        if (nameRegex.test(firstName) && nameRegex.test(lastName) && adressRegex.test(address) && nameRegex.test(city)) {
             window.location.href = 'confirmation.html?OrderId=' + data.orderId;
             return true;
         }
@@ -133,8 +132,8 @@ function ValidateForm(data) {
             alert('Veuillez entrer un nom valide');
             return false;
         }
-        })
-    }
+    })
+}
 
 function GetProductsId () {
     let productsId = [];
